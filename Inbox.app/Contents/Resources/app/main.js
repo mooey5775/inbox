@@ -31,6 +31,29 @@ app.on('ready', function() {
       event.preventDefault();
       shell.openExternal(url);
   });
+  var Menu = require("menu");
+
+var template = [{
+    label: "Application",
+    submenu: [
+        { label: "About Inbox", selector: "orderFrontStandardAboutPanel:" },
+        { type: "separator" },
+        { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
+    ]}, {
+    label: "Edit",
+    submenu: [
+        { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+        { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+        { label: "Find", accelerator: "CmdOrCtrl+F", click: function() { wc.executeJavaScript("var arr_elms = [];arr_elms = document.body.getElementsByTagName('*');var elms_len = arr_elms.length;for (var i = 0; i < elms_len; i++) {if(arr_elms[i].getAttribute('aria-label') == 'Search'){arr_elms[i].select();}}");}},
+        { type: "separator" },
+        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+        { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+    ]}
+];
+
+Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
